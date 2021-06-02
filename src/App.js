@@ -10,6 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import LoginPage from './components/login';
 import RegisterPage from './components/register';
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,8 +61,7 @@ function App() {
                 Bienvenue  {userLogged.username}
               </Typography>
               </div>
-              :<div><Button color="inherit" onClick={()=>{setFocusRegister(1); setFocusLogin(0)}}>Register</Button>
-              <Button color="inherit" onClick={()=>{setFocusLogin(1); setFocusRegister(0)}}>Login</Button></div>
+              :<div><Button color="inherit" onClick={()=>{setFocusLogin(1); setFocusRegister(0)}}>Login</Button></div>
               }
             </Toolbar>
           </AppBar>
@@ -65,41 +69,48 @@ function App() {
     )
   }
 
+  function Copyright() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="#">
+          QAMM
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
+
   if(focusLogin==1){
     return(
       <div className="App">
       <Header/>
       <LoginPage login={user => setUserLogged(user)}/>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </div>
     )
   }
-  else if(focusRegister){
-    return(
-      <div className="App">
-      <Header/>
-      <RegisterPage/>
-    </div>
-    )
-  }
+
   else{
     return (
-      <div className="App">
-        <Header/>
-        <div>
-        <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <Router>
+        <div className="App">
+          <Header/>
+          <Route path='/register' component= {RegisterPage}/>
+          <div>
+          <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              C'est ici qu'il va falloir gérer les routeurs / switchs ou autre matériel mit à notre disposition grâce à SPIE, merci SPIE
+            </p>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
         </div>
-      </div>
+      </Router>
     );
   }
 }
