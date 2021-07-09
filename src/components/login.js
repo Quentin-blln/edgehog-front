@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var testuser = {
+  username : 'antoineanthime.dev@gmail.com',
+  password : 'abc'
+}
 
 const LoginPage = ({ login }) => {
   const classes = useStyles();
@@ -47,19 +51,22 @@ const LoginPage = ({ login }) => {
   const loginRequest = () => {
     if (username !== '' && password !== '') {
       axios
-        .get(`https://127.0.0.1:3001/login`, { username: username, password: password })
+        .post(`http://localhost:3001/login`, { mail: username, password: password })
         .then(function (response) {
-          if (response == 'SI LA BASE DIT QUE LES LOGINS SON CORRECTS') {
-            login(response.data)
+          if (response.data) {
+            login(response.data[0])
           }
           console.log(response)
         })
         .catch(err => { console.error(err) })
+      
     }
     else {
       alert('Veuillez remplir les champs.')
     }
   }
+
+  
 
   return (
     <div>
@@ -95,7 +102,6 @@ const LoginPage = ({ login }) => {
               onChange={(e) => { setPassword(e.target.value) }}
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
@@ -120,7 +126,6 @@ const LoginPage = ({ login }) => {
           </form>
         </div>
       </Container>
-
     </div>
   )
 }
