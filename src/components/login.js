@@ -14,9 +14,6 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
 
-
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 3),
   },
 }));
 
@@ -70,12 +67,12 @@ const LoginPage = ({ login }) => {
 
   return (
     <div>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{ marginTop: 125 }}>
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
             Connectez vous
-        </Typography>
+          </Typography>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -102,7 +99,6 @@ const LoginPage = ({ login }) => {
               onChange={(e) => { setPassword(e.target.value) }}
             />
             <Button
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
@@ -119,7 +115,7 @@ const LoginPage = ({ login }) => {
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"?? Faire une demande de compte ??"}
+                  {"Faire une demande de compte ??"}
                 </Link>
               </Grid>
             </Grid>
