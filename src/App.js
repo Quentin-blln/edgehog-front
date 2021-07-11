@@ -45,12 +45,6 @@ function App() {
 
   const classes = useStyles();
 
-  var testUser = {
-    username: 'LaurentMaille',
-    password: 'jsp',
-    email: 'febfh@gmail.com'
-  }
-
   useEffect(() => {
     if (userLogged.u_mail) {
       setFocusLogin(0)
@@ -65,13 +59,8 @@ function App() {
       <header>
         <AppBar position="static">
           <Toolbar className={classes.header}>
-            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton> */}
             <Typography variant='h5'>
-              {/* <Button href='/#' color='inherit' onClick={() => { setFocusLogin(0); setFocusRegister(0) }}> */}
                 HedgeHog
-              {/* </Button> */}
             </Typography>
             {userLogged ?
               <div>
@@ -100,7 +89,7 @@ function App() {
       <Typography variant="body2" color="textSecondary" align="center" className={classes.footer}>
         {'Copyright © '}
         <Link color="inherit" href="#">
-          QAMM
+          QALMM
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

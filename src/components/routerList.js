@@ -40,7 +40,19 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid',
         padding: theme.spacing(1),
         backgroundColor: theme.palette.background.paper,
-      },
+    },
+    popperButtons: {
+        margin: 3,
+    },
+    tdTitle: {
+        textAlign: 'left',
+        textTransform: 'capitalize',
+    },
+    tdButton: {
+        textAlign: 'right',
+        width: '5%',
+        marginRight: 50,
+    }
 }));
 
 export default function RouterList() {
@@ -121,7 +133,7 @@ export default function RouterList() {
             <div className={classes.root}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Typography className={classes.title}>Sélctionnez un routeur</Typography>
+                        <Typography className={classes.title}>Sélectionnez un routeur</Typography>
                         <List item xs={3}>
                             {console.log('Router List: ', routerList),
                                 routerList.map(e => {
@@ -139,13 +151,13 @@ export default function RouterList() {
                                 })}
                         </List>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={5}>
                         <Box>
                             {
                                 routerSelectedId !== null ?
                                     <div>
                                         <p className={classes.title}>Détails du routeur</p>
-                                        <div>
+                                        <div style={{ marginTop: 30}}>
                                             <p>ID: {routerList[routerSelectedId - 1].m_id}</p>
                                             <p>Nom: {routerList[routerSelectedId - 1].m_name}</p>
                                             <p>IP: {routerList[routerSelectedId - 1].m_ip}</p>
@@ -158,26 +170,33 @@ export default function RouterList() {
                             }
                         </Box>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                         <Box>
                             {
                                 routerSelectedId !== null ?
                                 routerList[routerSelectedId-1].m_ip == '192.168.40.40' ?
                                 routerNodes !== []?
-                                    <div>
+                                    <div style={{ marginTop: 30}}>
                                         <p className={classes.title}>Noeuds</p>
                                         <div>
                                             {routerNodes.map(e=>{
                                                 return(
                                                 <div>
-                                                    <p>{e[0]}</p>
-                                                    <button onClick={(event)=>{handleNodeButtonCLick(e, event)}}>{e[1]}</button>
+                                                    <div style={{ marginRight: 15}}>
+                                                        <table>
+                                                            <tr style={{margin: 10}}>
+                                                                <td className={classes.tdTitle}>{e[0]}&nbsp; : &nbsp;</td>
+                                                                <td className={classes.tdButton}><Button color="primary" variant="contained" onClick={(event)=>{handleNodeButtonCLick(e, event)}}> {e[1]}</Button></td>
+                                                            </tr>
+                                                            <br></br>
+                                                        </table>
+                                                    </div>
                                                     <Popper id={e[0]} open={open} anchorEl={anchorEl}>
                                                         <div className={classes.paper}>
-                                                            <Button onClick={()=>{axios.get(`http://localhost:3001/activateImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)}).catch(function(err){console.log(err)})}}>Activer</Button>
-                                                            <Button onClick={()=>{axios.get(`http://localhost:3001/startImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Lancer</Button>
-                                                            <Button onClick={()=>{axios.get(`http://localhost:3001/stopImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Stopper</Button>
-                                                            <Button onClick={()=>{axios.get(`http://localhost:3001/deactivateImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Desactiver</Button>
+                                                            <Button className={classes.popperButtons} color="primary" variant="contained" onClick={()=>{axios.get(`http://localhost:3001/activateImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)}).catch(function(err){console.log(err)})}}>Activer</Button>
+                                                            <Button className={classes.popperButtons} color="primary" variant="contained" onClick={()=>{axios.get(`http://localhost:3001/startImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Lancer</Button>
+                                                            <Button className={classes.popperButtons} color="primary" variant="contained" onClick={()=>{axios.get(`http://localhost:3001/stopImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Stopper</Button>
+                                                            <Button className={classes.popperButtons} color="primary" variant="contained" onClick={()=>{axios.get(`http://localhost:3001/deactivateImage?id=${selectedNodeId}`).then(function(response){console.log(response);alert(response.data)})}}>Désactiver</Button>
                                                         </div>
                                                     </Popper>
                                                 </div>
@@ -193,13 +212,7 @@ export default function RouterList() {
                     </Grid>
                 </Grid>
             </div>
-            {routerList[routerSelectedId - 1]?.m_status === 'down' ? 
-                <Button color='primary' variant='contained' className={classes.button}>Activer</Button>
-            : routerList[routerSelectedId - 1]?.m_status === 'up' ?
-                <Button color='primary' variant='contained' className={classes.button}>Désactiver</Button>
-            : 
-                null
-            }
+            <Button color='primary' variant='contained' className={classes.button} target="_blank" href="http://3.122.62.63:3000/d/-bVUoNi7k/all-routers-dashboard?orgId=1&refresh=5s">Voir les logs</Button>
         </Grid>
     );
 }

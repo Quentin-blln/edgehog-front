@@ -110,12 +110,12 @@ const LoginPage = ({ login }) => {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Mot de passe oublié?
+                  Mot de passe oublié ?
               </Link>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Faire une demande de compte ??"}
+                  {"Faire une demande de compte"}
                 </Link>
               </Grid>
             </Grid>
